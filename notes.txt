@@ -1,0 +1,170 @@
+Graph QL
+
+- creates by FaceBook
+- takes in queries to a graphQL server that will collect data and send it back to the user
+- REST requests can be slow to send and receive data
+- + plus parse, stringify etc
+- Post requests bring back JSON data
+
+- Queries are sent => data is retreived from servers (in resolver functions) => response comes back
+
+Playground:
+
+TASK 1
+https://snowtooth.moonhighway.com/
+
+
+query {
+  allLifts {
+    name
+    capacity
+  }
+  liftCount
+}
+
+// Add an ALIAS to the data 
+
+query {
+  openLifts: liftCount(status: OPEN)
+  closedLifts: liftCount(status: CLOSED)
+  allLifts {
+    liftName: name
+    capacity
+  }
+  liftCount
+}
+
+
+// Practice using cmnd + spacebar for different queries
+// add variables (dynamic data) using $
+
+query ($status: LiftStatus) {
+  liftCount(status: $status)
+
+  allLifts {
+    liftName: name
+    capacity
+    status
+    night
+  }
+}
+
+
+// query connected types
+
+query  {
+  allLifts {
+    liftName: name
+    capacity
+    status
+    night
+    trailAccess {
+      name
+      status
+      accessedByLifts {
+        name
+      }
+    }
+  }
+}
+
+
+// creating operation names in Pascal
+
+query  AllLifts {
+  allLifts {
+    liftName: name
+    capacity
+    status
+    night
+    trailAccess {
+      name
+      status
+      accessedByLifts {
+        name
+      }
+    }
+  }
+}
+query AllTrails {
+  allTrails {
+    name
+    status
+  }
+}
+
+
+// Mutations of data
+
+ALL-TRIALS
+query AllTrails {
+  allTrails {
+    id
+    name
+    status
+  }
+}
+SET-TRAIL-STATUS
+mutation{
+  setTrailStatus(id: "goosebumps" status: OPEN) {
+    name
+    status
+  }
+}
+
+
+// graphQL fragment to retrieve large amounts of data
+
+query {
+  allLifts{
+    ...AllDetails
+  }
+  Lift(id: "panorama") {
+    ...AllDetails
+  }
+}
+fragment AllDetails on Lift {
+  id
+  name
+  status
+  capacity
+}
+
+
+// subscriptions to listen for live changes (similar to live Likes on Facebook)
+
+subscription{
+  liftStatusChange {
+    name
+    status
+  }
+}
+
+
+TASK 2
+https://pet-library.moonhighway.com/
+
+// ✅ write a query to get allPets by name, weight and category 
+
+query GetPets {
+  allPets {
+    name
+    weight
+    category
+  }
+}
+
+// ✅extend the query to see who has checked out the pet
+
+query GetPets {
+  allPets {
+    name
+    weight
+    category
+    status
+    inCareOf {
+      name
+    }
+  }
+}
+

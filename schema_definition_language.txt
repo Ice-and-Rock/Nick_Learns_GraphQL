@@ -1,0 +1,34 @@
+
+- GraphQL object types:
+
+type Photo {
+    id: ID!
+    name: String!
+    url: String!
+    description: Stringrating: Float
+    private: Boolean
+}
+
+
+- nullable vs. non-nullable:
+
+// needs to be not null
+name: String!
+
+// can be null
+description: String
+
+
+- Lists:
+
+// Photo can be a list
+type User {
+    postedPhotos: [Photo!]!
+}
+
+// nullable list of nullable values
+photos: [Photo]
+// non-nullable list of nullable values
+photos: [Photo]!
+// non-nullable list of non-nullable values
+photos: [Photo!]!
