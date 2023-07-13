@@ -13,3 +13,15 @@ mutation{
 
 // REMOVE A SKIDAY 
 
+mutation{
+  removeDay(id: "1234") {
+    day {
+      mountain
+      date
+
+    }
+  }
+}
+
+
+// 
