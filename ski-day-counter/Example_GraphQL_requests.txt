@@ -1,0 +1,15 @@
+// ADD A SKIDAY 
+
+mutation{
+  addDay(input:  {
+    date: "1/2/2024"
+    mountain: "ALpine meadows"
+    conditions: ICE
+  }) {
+    date
+  }
+}
+
+
+// REMOVE A SKIDAY 
+
